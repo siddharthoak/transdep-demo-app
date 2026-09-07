@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.neurealm.transdep</groupId>
+  <artifactId>app</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+
+  <name>transdep-demo-app</name>
+  <description>
+    Leaf application. Demo repo used as a vuln-remediation-agent GITHUB_REPO_TARGET to
+    test the transitive-dependency gap: this pom.xml declares no vulnerable dependency
+    directly -- log4j-core 2.14.1 (CVE-2021-44228) is pulled in two hops down, via
+    transdep-demo-service-lib -> transdep-demo-util-common.
+  </description>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <!-- Transitively pulls in util-common -> log4j-core 2.14.1 (CVE-2021-44228) -->
+    <dependency>
+      <groupId>com.github.siddharthoak</groupId>
+      <artifactId>transdep-demo-service-lib</artifactId>
+      <version>v1.0.0</version>
+    </dependency>
+  </dependencies>
+</project>
